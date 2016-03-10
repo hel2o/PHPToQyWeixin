@@ -117,23 +117,24 @@ class Tools {
 	/**
 	 * 使用POST请求上传文件
 	 */
-	public function uploadFileByPost($url, $data) {
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($ch, CURLOPT_BINARYTRANSFER, TRUE);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-		curl_setopt($ch, CURLOPT_POST, TRUE);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-		$result = curl_exec($ch);
-		if ($error = curl_error($ch)) {
-			die($error);
-		}
-		curl_close($ch);
+        public function uploadFileByPost($url, $data) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_SAFE_UPLOAD, false);
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+                curl_setopt($ch, CURLOPT_BINARYTRANSFER, TRUE);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+                curl_setopt($ch, CURLOPT_POST, TRUE);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                $result = curl_exec($ch);
+                if ($error = curl_error($ch)) {
+                        die($error);
+                }
+                curl_close($ch);
 
-		return json_decode($result, TRUE);
-	}
+                return json_decode($result, TRUE);
+        }
 
 	/**
 	 * 用CURL发起一个HTTP请求
